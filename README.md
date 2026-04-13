@@ -1,7 +1,7 @@
 # Calorie Counter App
 
 ## Description
-This is a web application that enable users track their daily calorie intake.
+This is a web application that enable users track their daily calorie intake.The application updates the total calories taken and stores the data using local storage.
 
 ## Features
 * Add items with calorie values
@@ -9,12 +9,14 @@ This is a web application that enable users track their daily calorie intake.
 * Display total calories
 * Data stored using local storage
 * Reset data
-* Fetch Api data
+* Fetch Api data- simuluated API call
 
 ## Technologies Used
-* Html
+* Html5
 * Css
-* Javascript
+* Javascript(ES6)
 
+## LICENSE
+This project is licensed under MIT License.
 
 
