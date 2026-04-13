@@ -12,9 +12,9 @@ This is a web application that enable users track their daily calorie intake.
 * Fetch Api data
 
 ## Technologies Used
-* HTML
-* CSS
-* JAVASCRIPT
+* Html
+* Css
+* Javascript
 
 
 
