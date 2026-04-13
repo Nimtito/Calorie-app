@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie Counter</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Calorie Counter</h1>
+
+    <form id="foodForm">
+      <input id="foodName" type="text" placeholder="Food name" required>
+      <input id="calories" type="number" placeholder="Calories" required>
+      <button type="submit">Add Food</button>
+    </form>
+
+    <ul id="foodList"></ul>
+
+    <h2>Total Calories: <span id="totalCalories">0</span></h2>
+
+    <button id="resetBtn">Reset</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
