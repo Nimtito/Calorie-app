@@ -1,26 +1,69 @@
+// ================= 1. DATA =================
+let foods = [];
+
+
+// ================= 2. LOAD DATA =================
+function loadFoods() {
+  const savedFoods = localStorage.getItem("foods");
+  return savedFoods ? JSON.parse(savedFoods) : [];
+}
+
+
+// ================= 3. SAVE DATA =================
+function saveFoods() {
+  localStorage.setItem("foods", JSON.stringify(foods));
+}
+
+
+// ================= 4. DOM ELEMENTS =================
 const form = document.getElementById("foodForm");
 const foodNameInput = document.getElementById("foodName");
-const caloriesInput = document.getElementById("calories");
 const foodList = document.getElementById("foodList");
 const totalCaloriesEl = document.getElementById("totalCalories");
 const resetBtn = document.getElementById("resetBtn");
 
-// Load from localStorage
-let foods = JSON.parse(localStorage.getItem("foods")) || [];
 
-// Save to localStorage
-function saveToStorage() {
-  localStorage.setItem("foods", JSON.stringify(foods));
+// ================= 5. FETCH CALORIES =================
+async function fetchCalories(foodName) {
+  try {
+    // Simulated API call
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    await response.json();
+
+    // Fake calorie database
+    const calorieData = {
+      rice: 200,
+      chicken: 300,
+      apple: 95,
+      bread: 150,
+      egg: 70
+    };
+
+    return calorieData[foodName.toLowerCase()] || 100;
+
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return 100;
+  }
 }
 
-// Calculate total calories
-function calculateTotal() {
-  const total = foods.reduce((sum, item) => sum + item.calories, 0);
-  totalCaloriesEl.textContent = total;
+
+// ================= 6. CALCULATE TOTAL =================
+function calculateCalories() {
+  let total = 0;
+  foods.forEach(food => total += food.calories);
+  return total;
 }
 
-// Display foods
-function renderFoods() {
+
+// ================= 7. UPDATE TOTAL =================
+function updateTotal() {
+  totalCaloriesEl.textContent = calculateCalories();
+}
+
+
+// ================= 8. DISPLAY FOODS =================
+function displayFoods() {
   foodList.innerHTML = "";
 
   foods.forEach((food, index) => {
@@ -32,60 +75,64 @@ function renderFoods() {
     `;
 
     li.querySelector("button").addEventListener("click", () => {
-      removeFood(index);
+      deleteFood(index);
     });
 
     foodList.appendChild(li);
   });
 
-  calculateTotal();
+  updateTotal();
 }
 
-// Add food
-function addFood(e) {
-  e.preventDefault();
+
+// ================= 9. ADD FOOD =================
+async function addFood(event) {
+  event.preventDefault();
 
   const name = foodNameInput.value.trim();
+   const caloriesInput = document.getElementById("calories");
   const calories = Number(caloriesInput.value);
 
-  if (!name || !calories) return;
+  
+  if (!name|| ! calories ) return;
 
-  foods.push({ name, calories });
+  const newFood = { name, calories };
 
-  saveToStorage();
-  renderFoods();
+  foods.push(newFood);
+  saveFoods();
+  displayFoods();
+
   form.reset();
 }
 
-// Remove food
-function removeFood(index) {
+
+// ================= 10. DELETE FOOD =================
+function deleteFood(index) {
   foods.splice(index, 1);
-  saveToStorage();
-  renderFoods();
+  saveFoods();
+  displayFoods();
 }
 
-// Reset all
-function resetAll() {
+
+// ================= 11. RESET =================
+function resetFoods() {
   foods = [];
-  saveToStorage();
-  renderFoods();
+  saveFoods();
+  displayFoods();
 }
 
-// Simulated Fetch API
-async function fetchCaloriesExample() {
-  try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-    const data = await response.json();
-    console.log("Fetched data:", data);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
 
-// Events
+// ================= 12. EVENTS =================
 form.addEventListener("submit", addFood);
-resetBtn.addEventListener("click", resetAll);
+resetBtn.addEventListener("click", resetFoods);
 
-// Initial load
-renderFoods();
-fetchCaloriesExample();
+
+// ================= 13. INIT =================
+function init() {
+  foods = loadFoods();
+  displayFoods();
+  fetch calories();
+}
+
+init();
+
