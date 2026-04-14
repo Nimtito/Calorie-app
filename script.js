@@ -1,21 +1,19 @@
-// ================= 1. DATA =================
+
 let foods = [];
 
-
-// ================= 2. LOAD DATA =================
 function loadFoods() {
   const savedFoods = localStorage.getItem("foods");
   return savedFoods ? JSON.parse(savedFoods) : [];
 }
 
 
-// ================= 3. SAVE DATA =================
+//  SAVE DATA 
 function saveFoods() {
   localStorage.setItem("foods", JSON.stringify(foods));
 }
 
 
-// ================= 4. DOM ELEMENTS =================
+//  DOM ELEMENTS 
 const form = document.getElementById("foodForm");
 const foodNameInput = document.getElementById("foodName");
 const foodList = document.getElementById("foodList");
@@ -23,14 +21,14 @@ const totalCaloriesEl = document.getElementById("totalCalories");
 const resetBtn = document.getElementById("resetBtn");
 
 
-// ================= 5. FETCH CALORIES =================
+//  FETCH CALORIES 
 async function fetchCalories(foodName) {
   try {
     // Simulated API call
     const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
     await response.json();
 
-    // Fake calorie database
+    
     const calorieData = {
       rice: 200,
       chicken: 300,
@@ -48,7 +46,7 @@ async function fetchCalories(foodName) {
 }
 
 
-// ================= 6. CALCULATE TOTAL =================
+// CALCULATE TOTAL 
 function calculateCalories() {
   let total = 0;
   foods.forEach(food => total += food.calories);
@@ -56,13 +54,13 @@ function calculateCalories() {
 }
 
 
-// ================= 7. UPDATE TOTAL =================
+// UPDATE TOTAL 
 function updateTotal() {
   totalCaloriesEl.textContent = calculateCalories();
 }
 
 
-// ================= 8. DISPLAY FOODS =================
+// DISPLAY FOODS
 function displayFoods() {
   foodList.innerHTML = "";
 
@@ -85,7 +83,7 @@ function displayFoods() {
 }
 
 
-// ================= 9. ADD FOOD =================
+//  ADD FOOD
 async function addFood(event) {
   event.preventDefault();
 
@@ -106,7 +104,7 @@ async function addFood(event) {
 }
 
 
-// ================= 10. DELETE FOOD =================
+//  DELETE FOOD
 function deleteFood(index) {
   foods.splice(index, 1);
   saveFoods();
@@ -114,7 +112,7 @@ function deleteFood(index) {
 }
 
 
-// ================= 11. RESET =================
+//  RESET 
 function resetFoods() {
   foods = [];
   saveFoods();
@@ -122,16 +120,16 @@ function resetFoods() {
 }
 
 
-// ================= 12. EVENTS =================
+//  EVENTS 
 form.addEventListener("submit", addFood);
 resetBtn.addEventListener("click", resetFoods);
 
 
-// ================= 13. INIT =================
+//  INIT 
 function init() {
   foods = loadFoods();
   displayFoods();
-  fetch calories();
+  fetchCaloriesexample();
 }
 
 init();
