@@ -14,7 +14,7 @@ function saveFoods() {
 
 
 //  DOM ELEMENTS 
-const form = document.getElementById("foodForm");
+const form = document.getElementById("foodform");
 const foodNameInput = document.getElementById("foodName");
 const foodList = document.getElementById("foodList");
 const totalCaloriesEl = document.getElementById("totalCalories");
@@ -22,26 +22,22 @@ const resetBtn = document.getElementById("resetBtn");
 
 
 //  FETCH CALORIES 
-async function fetchCalories(foodName) {
+async function Caloriescounter(query) {
+  let url= 'https://api.calorieninjas.com/v1/nutrition?query=${query}'
   try {
-    // Simulated API call
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-    await response.json();
 
-    
-    const calorieData = {
-      rice: 200,
-      chicken: 300,
-      apple: 95,
-      bread: 150,
-      egg: 70
-    };
+    let response = await fetch(url,{
+      method : "GET",
+      headers : {
+        'X-Api-key': 'BTDdvqlJ6Q1Dr5KdWoJHk3afU1Rbcp2aWMV4OTo3',
+        'content-type':'application/json'
+      }
 
-    return calorieData[foodName.toLowerCase()] || 100;
-
+    })
+       let data = response.json()
+       console.log(data)
   } catch (error) {
     console.error("Fetch error:", error);
-    return 100;
   }
 }
 
